@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 package main;
-
+import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
@@ -22,15 +23,18 @@ import java.util.ArrayList;
 
 /**
  *
- * @author linzhang
+ * @author gracezhang
  */
 public class Main extends JApplet {
     
     private static final int JFXPANEL_WIDTH_INT = 300;
     private static final int JFXPANEL_HEIGHT_INT = 250;
+    private final StarterJFrame starter = new StarterJFrame();
     private static JFXPanel fxContainer;
-    public ArrayList<Event> events = new ArrayList<Event>();
+    public static ArrayList<Event> events = new ArrayList<Event>();
 
+
+    
     /**
      * @param args the command line arguments
      */
@@ -46,9 +50,8 @@ public class Main extends JApplet {
                 
                 //JFrame frame = new JFrame("JavaFX 2 in Swing");
                 
-                JFrame frame = new EventEditorJFrame();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                
+                StarterJFrame frame = new StarterJFrame();
+                frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 JApplet applet = new Main();
                 applet.init();
                 
@@ -62,6 +65,7 @@ public class Main extends JApplet {
             }
         });
     }
+
     
     @Override
     public void init() {
@@ -92,5 +96,8 @@ public class Main extends JApplet {
         root.getChildren().add(btn);
         fxContainer.setScene(new Scene(root));
     }
+
+  
+
     
 }

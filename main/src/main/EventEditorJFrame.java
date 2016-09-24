@@ -6,6 +6,7 @@
 package main;
 import java.awt.event.WindowEvent;
 import java.util.Date;
+import javax.swing.JFrame;
 /**
  *
  * @author linzhang
@@ -22,7 +23,7 @@ public class EventEditorJFrame extends javax.swing.JFrame {
         this.event = new Event(new Date(), "Cure Cancer");
         initComponents();
         eventName.setText(event.getName());
-        eventDate.setText(event.getDate().toString());
+        eventDate.setText("01/01/0001");
     }
     
     public EventEditorJFrame(Date date) {
@@ -36,6 +37,7 @@ public class EventEditorJFrame extends javax.swing.JFrame {
     public EventEditorJFrame(Event event) {
         this.event = event;
         initComponents();
+        Main.events.remove(event);
         eventName.setText(event.getName());
         eventDate.setText(event.getDate().toString());
         
@@ -56,7 +58,8 @@ public class EventEditorJFrame extends javax.swing.JFrame {
         nameLabel = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
         eventDate = new javax.swing.JTextField();
-        Save = new javax.swing.JButton();
+        saveEventButton = new javax.swing.JButton();
+        deleteEventButton = new javax.swing.JButton();
 
         jTextField2.setText("jTextField2");
 
@@ -82,10 +85,17 @@ public class EventEditorJFrame extends javax.swing.JFrame {
             }
         });
 
-        Save.setText("Save");
-        Save.addActionListener(new java.awt.event.ActionListener() {
+        saveEventButton.setText("Save");
+        saveEventButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveActionPerformed(evt);
+                saveEventButtonActionPerformed(evt);
+            }
+        });
+
+        deleteEventButton.setText("Delete");
+        deleteEventButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteEventButtonActionPerformed(evt);
             }
         });
 
@@ -104,10 +114,15 @@ public class EventEditorJFrame extends javax.swing.JFrame {
                     .addComponent(eventDate))
                 .addGap(120, 120, 120))
             .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Save)
-                    .addComponent(titleLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(titleLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(saveEventButton)
+                        .addGap(37, 37, 37)
+                        .addComponent(deleteEventButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,9 +138,11 @@ public class EventEditorJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateLabel)
                     .addComponent(eventDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
-                .addComponent(Save)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveEventButton)
+                    .addComponent(deleteEventButton))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,7 +157,7 @@ public class EventEditorJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_eventDateActionPerformed
 
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+    private void saveEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveEventButtonActionPerformed
         // TODO add your handling code here:
         // update event object, direct to calendar page
         String[] dateText = eventDate.getText().split("/"); //format: mm/dd/yyyy
@@ -148,8 +165,21 @@ public class EventEditorJFrame extends javax.swing.JFrame {
         event.setDate(new Date(Integer.valueOf(dateText[2]), 
                 Integer.valueOf(dateText[0]), Integer.valueOf(dateText[2])));
         event.setName(eventName.getText());
+        Main.events.add(event);
+        
+
+        JFrame frame = new StarterJFrame();
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }//GEN-LAST:event_SaveActionPerformed
+    }//GEN-LAST:event_saveEventButtonActionPerformed
+
+    private void deleteEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEventButtonActionPerformed
+        // TODO add your handling code here:
+        Main.events.remove(event);
+    }//GEN-LAST:event_deleteEventButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,12 +217,13 @@ public class EventEditorJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Save;
     private javax.swing.JLabel dateLabel;
+    private javax.swing.JButton deleteEventButton;
     private javax.swing.JTextField eventDate;
     private javax.swing.JTextField eventName;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JButton saveEventButton;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
