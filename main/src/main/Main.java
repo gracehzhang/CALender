@@ -42,13 +42,14 @@ public class Main extends JApplet {
                 } catch (Exception e) {
                 }
                 
-                JFrame frame = new JFrame("JavaFX 2 in Swing");
+                //JFrame frame = new JFrame("JavaFX 2 in Swing");
+                JFrame frame = new EventEditorJFrame();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
                 JApplet applet = new Main();
                 applet.init();
                 
-                frame.setContentPane(applet.getContentPane());
+                //frame.setContentPane(applet.getContentPane());
                 
                 frame.pack();
                 frame.setLocationRelativeTo(null);
