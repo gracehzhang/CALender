@@ -18,6 +18,7 @@ import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,6 +29,7 @@ public class Main extends JApplet {
     private static final int JFXPANEL_WIDTH_INT = 300;
     private static final int JFXPANEL_HEIGHT_INT = 250;
     private static JFXPanel fxContainer;
+    public ArrayList<Event> events = new ArrayList<Event>();
 
     /**
      * @param args the command line arguments
@@ -43,6 +45,7 @@ public class Main extends JApplet {
                 }
                 
                 //JFrame frame = new JFrame("JavaFX 2 in Swing");
+                
                 JFrame frame = new EventEditorJFrame();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 

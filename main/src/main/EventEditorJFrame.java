@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package main;
+import java.awt.event.WindowEvent;
 import java.util.Date;
 /**
  *
@@ -82,6 +83,11 @@ public class EventEditorJFrame extends javax.swing.JFrame {
         });
 
         Save.setText("Save");
+        Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,6 +139,17 @@ public class EventEditorJFrame extends javax.swing.JFrame {
     private void eventDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_eventDateActionPerformed
+
+    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+        // TODO add your handling code here:
+        // update event object, direct to calendar page
+        String[] dateText = eventDate.getText().split("/"); //format: mm/dd/yyyy
+        // TODO catch NumberFormatException
+        event.setDate(new Date(Integer.valueOf(dateText[2]), 
+                Integer.valueOf(dateText[0]), Integer.valueOf(dateText[2])));
+        event.setName(eventName.getText());
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_SaveActionPerformed
 
     /**
      * @param args the command line arguments
